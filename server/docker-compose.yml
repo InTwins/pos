@@ -1,0 +1,21 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  pos-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pos-api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
