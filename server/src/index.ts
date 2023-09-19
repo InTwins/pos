@@ -9,7 +9,7 @@ const setup = async () => {
   try {
     checkEnvVariables();
     await connectDB();
-    connectRedis();
+    // connectRedis();
 
     app.listen(PORT, () => {
       console.log(`Listening on port ${PORT}!`);
