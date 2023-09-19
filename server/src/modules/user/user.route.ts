@@ -1,7 +1,6 @@
 import { Router } from "express";
+import { registerUser } from "./user.controller";
 
 export const userRouter = Router();
 
-userRouter.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+userRouter.post("/register", registerUser);

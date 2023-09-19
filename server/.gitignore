@@ -1,4 +1,7 @@
 node_modules/
 .env
+.env.development
+.env.production
 postgres_data/
 dist/
+redis_data/
