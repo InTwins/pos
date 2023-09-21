@@ -1,4 +1,4 @@
-import { number, z } from "zod"
+import { z } from "zod"
 
 export const createBrandValidator = z.object({
   name: z.string().min(2, "Enter minimun 2 characters"),
@@ -10,7 +10,7 @@ export const getSingleBrandValidator = z.object({
 })
 
 export const updateBrandValidator = z.object({
-  id:z.number(),
+  id: z.number(),
   name: z.string().min(2, "Enter minimun 2 characters"),
   description: z.string().min(5, "Enter minimun 5 characters"),
 })
