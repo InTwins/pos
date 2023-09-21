@@ -33,22 +33,6 @@ export const createBrandController = catchAsyncError(
 )
 
 export const getBrandsController = catchAsyncError(
-  async (req: Request, res: Response, next: NextFunction) => {},
-)
-
-export const getSingleBrandController = catchAsyncError(
-  async (req: Request, res: Response, next: NextFunction) => {},
-)
-
-export const updateBrandController = catchAsyncError(
-  async (req: Request, res: Response, next: NextFunction) => {},
-)
-
-export const deleteBrandController = catchAsyncError(
-  async (req: Request, res: Response, next: NextFunction) => {},
-)
-
-export const getBrandsController = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const brandsdata = await getBrandsServive()
