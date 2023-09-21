@@ -1,21 +1,21 @@
-import path from "path";
+import path from "path"
 
-const developmentEnvPath = path.join(__dirname, "../../.env.development");
-const productionEnvPath = path.join(__dirname, "../../.env.production");
+const developmentEnvPath = path.join(__dirname, "../../.env.development")
+const productionEnvPath = path.join(__dirname, "../../.env.production")
 
-let envPath;
+let envPath
 
 if (process.env.NODE_ENV === "production") {
-  envPath = productionEnvPath;
+  envPath = productionEnvPath
 } else {
-  envPath = developmentEnvPath;
+  envPath = developmentEnvPath
 }
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config({
   path: envPath,
-});
+})
 
-console.log(__dirname);
 const env = {
   DATABASE_URL: process.env.DATABASE_URL,
   PORT: process.env.PORT,
@@ -24,17 +24,16 @@ const env = {
   JWT_SECRET: process.env.JWT_SECRET,
   JWT_ISSUER: process.env.JWT_ISSUER,
   JWT_ACTIVATION_EXPIRATION: process.env.JWT_ACTIVATION_EXPIRATION,
-};
+}
 
-type EnvKey = keyof typeof env;
+type EnvKey = keyof typeof env
 
 export const checkEnvVariables = () => {
-  console.log(env);
-  Object.keys(env).forEach((key) => {
-    if (!env[key as EnvKey]) {
-      throw new Error(`Environment variable ${key} is missing`);
+  Object.keys(env).forEach(key => {
+    if (env[key as EnvKey] === undefined) {
+      throw new Error(`Environment variable ${key} is missing`)
     }
-  });
-};
+  })
+}
 
-export const getEnv = (key: EnvKey) => env[key] as string;
+export const getEnv = (key: EnvKey) => env[key] as string

@@ -1,7 +1,7 @@
-import { Router } from "express";
+import { Router } from "express"
 
-export const categoryRouter = Router();
+export const categoryRouter = Router()
 
 categoryRouter.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+  res.send("Hello World!")
+})
