@@ -1,20 +1,20 @@
-import { Router } from "express";
+import { Router } from "express"
 import {
   createBrandController,
   deleteBrandController,
   getBrandsController,
   getSingleBrandController,
   updateBrandController,
-} from "./brand.controller";
+} from "./brand.controller"
 
-export const brandRouter = Router();
+export const brandRouter = Router()
 
-brandRouter.get("/", getBrandsController);
+brandRouter.get("/", getBrandsController)
 
-brandRouter.get("/:id", getSingleBrandController);
+brandRouter.get("/:id", getSingleBrandController)
 
-brandRouter.post("/", createBrandController);
+brandRouter.post("/", createBrandController)
 
-brandRouter.put("/:id", updateBrandController);
+brandRouter.put("/:id", updateBrandController)
 
-brandRouter.delete("/:id", deleteBrandController);
+brandRouter.delete("/:id", deleteBrandController)
