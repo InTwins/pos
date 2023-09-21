@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express"
+import type { NextFunction, Request, Response } from "express"
 import { catchAsyncError } from "../../lib/catch-async-error"
 import {
   createBrandValidator,
@@ -13,21 +13,28 @@ import {
   getSingleBrandServive,
   updateBrandServive,
 } from "./brand.service"
+import { ErrorHandler } from "../../lib/error-handler"
 
 export const createBrandController = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const brandData = createBrandValidator.parse(req.body)
-      const brand = await createBrandService(brandData)
 
-      res.status(200).json({
-        data: brand,
-      })
+      try {
+        const brand = await createBrandService(brandData)
+
+        res.status(200).json({
+          success: true,
+          message: "Brand created successfully!",
+          data: brand,
+        })
+      } catch (error) {
+        console.error(error)
+        next(new ErrorHandler("Could not create brand!", 500))
+      }
     } catch (error) {
       console.error(error)
-      res.status(400).json({
-        error,
-      })
+      next(new ErrorHandler("Invalid request body!", 400))
     }
   },
 )
@@ -35,72 +42,74 @@ export const createBrandController = catchAsyncError(
 export const getBrandsController = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const brandsdata = await getBrandsServive()
+      const brandsData = await getBrandsServive()
 
       res.status(200).json({
-        data: brandsdata,
+        success: true,
+        message: "Success",
+        data: brandsData,
       })
     } catch (error) {
       console.error(error)
-      res.status(400).json({
-        error,
-      })
+      next(new ErrorHandler("Couldn't get brands data!", 500))
     }
-  }
+  },
 )
 
 export const getSingleBrandController = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const getSingleBrand = getSingleBrandValidator.parse(req.body)
-      const branddata = await getSingleBrandServive(getSingleBrand.id)
+      const brandData = await getSingleBrandServive(getSingleBrand.id)
 
       res.status(200).json({
-        data: branddata,
+        success: true,
+        message: "Success",
+        data: brandData,
       })
     } catch (error) {
       console.error(error)
-      res.status(400).json({
-        error,
-      })
+      next(new ErrorHandler("Counldn't get brand data!", 500))
     }
-  }
+  },
 )
 
 export const updateBrandController = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const updatevalidate = updateBrandValidator.parse({
+      const updateValidate = updateBrandValidator.parse({
         ...req.body,
         ...req.params,
       })
 
-      const updatedata = await updateBrandServive(updatevalidate)
+      const updateData = await updateBrandServive(updateValidate)
 
-      res.status(200).json({ data: updatedata })
+      res.status(200).json({
+        data: updateData,
+        message: "Success",
+        success: true,
+      })
     } catch (error) {
       console.error(error)
-      res.status(400).json({
-        error,
-      })
+      next(new ErrorHandler("Couldn't update brand info!", 500))
     }
-  }
+  },
 )
 
 export const deleteBrandController = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const deleteValidate = deleteBrandValidator.parse(req.params)
-      const deletebrand = await deleteBrandServive(deleteValidate.id)
+      const deleteBrand = await deleteBrandServive(deleteValidate.id)
 
       res.status(200).json({
-        data: "Delete succefull",
+        message: "Success",
+        success: true,
+        data: deleteBrand,
       })
     } catch (error) {
       console.error(error)
-      res.status(400).json({
-        error,
-      })
+      next(new ErrorHandler("Could not delete brand!", 500))
     }
-  }
+  },
 )
