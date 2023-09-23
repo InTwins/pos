@@ -1,7 +1,14 @@
 import { Router } from "express"
+import {
+  createCategoryController,
+  deleteCategoryController,
+  getCategoryController,
+  updateCategoryController,
+} from "./category.controller"
 
 export const categoryRouter = Router()
 
-categoryRouter.get("/", (req, res) => {
-  res.send("Hello World!")
-})
+categoryRouter.get("/", createCategoryController)
+categoryRouter.post("/", getCategoryController)
+categoryRouter.put("/:id", updateCategoryController)
+categoryRouter.delete("/:id", deleteCategoryController)
