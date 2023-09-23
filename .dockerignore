@@ -1,0 +1,7 @@
+node_modules/
+postgres_data/
+dist/
+
+server/node_modules/
+server/postgres_data/
+server/dist/

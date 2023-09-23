@@ -1,0 +1,38 @@
+{
+  "name": "pos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "redis:up": "docker compose up -d redis",
+    "redis:down": "docker compose down redis",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down postgres",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "clean": "rm -rf server/dist/ && rm -rf web/dist/",
+    "server:dev": "cd server && pnpm dev",
+    "server:lint": "cd server && pnpm lint",
+    "server:lint:fix": "cd server && pnpm lint:fix",
+    "server:format": "cd server && pnpm format",
+    "server:build": "cd server && pnpm build",
+    "web:dev": "cd web && pnpm dev",
+    "web:build": "cd web && pnpm build",
+    "web:lint": "cd web && pnpm lint",
+    "web:preview": "cd web && pnpm preview",
+    "dev": "concurrently \"pnpm server:dev\" \"pnpm web:dev\"",
+    "prisma:generate": "cd server && pnpm prisma:generate",
+    "prisma:migrate": "cd server && pnpm prisma:migrate",
+    "prisma:studio": "cd server && pnpm prisma:studio",
+    "prisma:reset": "cd server && pnpm prisma:reset",
+    "prisma:seed": "cd server && pnpm prisma:seed",
+    "dx": "chmod +x ./scripts/dx.sh && ./scripts/dx.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.1"
+  }
+}
