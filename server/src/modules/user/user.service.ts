@@ -1,4 +1,5 @@
 import type { User } from "@prisma/client"
+import { hashPassword } from "../../lib/hash-password"
 import { prisma } from "../../lib/prisma-client"
 
 type UserType = Omit<User, "id">
@@ -9,13 +10,26 @@ export const getUserByEmail = async (email: string) => {
   })
 }
 
-export const createUser = async ({ email, password, role, name }: UserType) => {
+export const createUserService = async ({
+  email,
+  password,
+  role,
+  name,
+}: UserType) => {
+  const hashedPassword = await hashPassword(password)
+
   return await prisma.user.create({
     data: {
       email,
-      password,
+      password: hashedPassword,
       role,
       name,
     },
   })
 }
+
+// export const loginUserService = async ({email, password}: {email: string, password: string}) => {
+
+//   const matchPassword = await comparePassword(password, dbUser?.password)
+
+// }

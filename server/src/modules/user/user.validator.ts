@@ -6,3 +6,8 @@ export const UserRegistrationValidator = z.object({
   role: z.string().default("salesperson"),
   password: z.string(),
 })
+
+export const UserLoginValidator = z.object({
+  email: z.string().email(),
+  password: z.string(),
+})
