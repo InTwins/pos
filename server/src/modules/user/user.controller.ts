@@ -20,6 +20,7 @@ export const registerUser = catchAsyncError(
       const dbUser = await createUser({ name, email, password, role })
       res.json({
         success: true,
+        message: "User created successfully!",
         data: dbUser,
       })
     } catch (error: any) {
