@@ -19,4 +19,4 @@ export const sidebarNavItems = [
     title: "Display",
     link: "/dashboard/settings/display",
   },
-];
+]

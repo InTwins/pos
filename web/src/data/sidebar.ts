@@ -1,6 +1,6 @@
 interface SidebarType {
-  title: string;
-  children: { title: string; link: string; icon: string }[];
+  title: string
+  children: { title: string; link: string; icon: string }[]
 }
 
 export const sidebar: SidebarType[] = [
@@ -83,4 +83,4 @@ export const sidebar: SidebarType[] = [
       { title: "Stock Report", link: "/dashboard/reports/stock", icon: "" },
     ],
   },
-];
+]

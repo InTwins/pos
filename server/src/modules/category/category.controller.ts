@@ -71,20 +71,17 @@ export const updateCategoryController = catchAsyncError(
   },
 )
 
-// export const deleteCategoryController = catchAsyncError(
-//   async (req: Request, res: Response, next: NextFunction) => {
-//     try {
-// const categoryData = createCategoryValidator.parse(req.body)
+export const deleteCategoryController = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // const categoryData = createCategoryValidator.parse(req.body)
 
-// try {
-//   const category =
-// } catch (error) {
-
-// }
-
-//     } catch (error) {
-//       console.error(error)
-//       next(new ErrorHandler("Invalid request body!", 400))
-//     }
-//   }
-// )
+      try {
+        // const category = ""
+      } catch (error) {}
+    } catch (error) {
+      console.error(error)
+      next(new ErrorHandler("Invalid request body!", 400))
+    }
+  },
+)
