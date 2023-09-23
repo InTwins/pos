@@ -59,17 +59,23 @@ export const getBrandsController = catchAsyncError(
 export const getSingleBrandController = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const getSingleBrand = getSingleBrandValidator.parse(req.body)
-      const brandData = await getSingleBrandServive(getSingleBrand.id)
+      const getSingleBrand = getSingleBrandValidator.parse(req.params)
 
-      res.status(200).json({
-        success: true,
-        message: "Success",
-        data: brandData,
-      })
+      try {
+        const brandData = await getSingleBrandServive(getSingleBrand.id)
+
+        res.status(200).json({
+          success: true,
+          message: "Success",
+          data: brandData,
+        })
+      } catch (error) {
+        console.error(error)
+        next(new ErrorHandler("Counldn't get brand data!", 500))
+      }
     } catch (error) {
       console.error(error)
-      next(new ErrorHandler("Counldn't get brand data!", 500))
+      next(new ErrorHandler("Invalid request body!", 400))
     }
   },
 )
@@ -82,16 +88,21 @@ export const updateBrandController = catchAsyncError(
         ...req.params,
       })
 
-      const updateData = await updateBrandServive(updateValidate)
+      try {
+        const updateData = await updateBrandServive(updateValidate)
 
-      res.status(200).json({
-        data: updateData,
-        message: "Success",
-        success: true,
-      })
+        res.status(200).json({
+          data: updateData,
+          message: "Success",
+          success: true,
+        })
+      } catch (error) {
+        console.error(error)
+        next(new ErrorHandler("Could not update brand info!", 500))
+      }
     } catch (error) {
       console.error(error)
-      next(new ErrorHandler("Couldn't update brand info!", 500))
+      next(new ErrorHandler("Invalid request body.", 400))
     }
   },
 )
@@ -100,16 +111,21 @@ export const deleteBrandController = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const deleteValidate = deleteBrandValidator.parse(req.params)
-      const deleteBrand = await deleteBrandServive(deleteValidate.id)
+      try {
+        const deleteBrand = await deleteBrandServive(deleteValidate.id)
 
-      res.status(200).json({
-        message: "Success",
-        success: true,
-        data: deleteBrand,
-      })
+        res.status(200).json({
+          message: "Success",
+          success: true,
+          data: deleteBrand,
+        })
+      } catch (error) {
+        console.error(error)
+        next(new ErrorHandler("Could not delete brand!", 500))
+      }
     } catch (error) {
       console.error(error)
-      next(new ErrorHandler("Could not delete brand!", 500))
+      next(new ErrorHandler("Invalid request body!", 400))
     }
   },
 )
