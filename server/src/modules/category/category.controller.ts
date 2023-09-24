@@ -1,10 +1,17 @@
-import { createCategoryValidator } from "./category.validator"
 import type { NextFunction, Request, Response } from "express"
 import { catchAsyncError } from "../../lib/catch-async-error"
 import { ErrorHandler } from "../../lib/error-handler"
-import { createCategoryService, getCategoryService } from "./category.service"
-import { updateBrandValidator } from "../brand/brand.validator"
-import { updateBrandServive } from "../brand/brand.service"
+import {
+  createCategoryService,
+  deleteCategoryService,
+  getCategoryService,
+  updateCategoryService,
+} from "./category.service"
+import {
+  createCategoryValidator,
+  deleteCategoryValidator,
+  updateCategoryValidator,
+} from "./category.validator"
 
 export const createCategoryController = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -40,7 +47,7 @@ export const getCategoryController = catchAsyncError(
       })
     } catch (error) {
       console.error(error)
-      next(new ErrorHandler("Couldn't get data!", 400))
+      next(new ErrorHandler("Couldn't get data!", 500))
     }
   },
 )
@@ -48,13 +55,13 @@ export const getCategoryController = catchAsyncError(
 export const updateCategoryController = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const updateData = updateBrandValidator.parse({
+      const updateData = updateCategoryValidator.parse({
         ...req.params,
         ...req.body,
       })
 
       try {
-        const update = await updateBrandServive(updateData)
+        const update = await updateCategoryService(updateData)
         res.status(200).json({
           success: true,
           message: "Success",
@@ -74,11 +81,19 @@ export const updateCategoryController = catchAsyncError(
 export const deleteCategoryController = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      // const categoryData = createCategoryValidator.parse(req.body)
+      const deleteCategory = deleteCategoryValidator.parse(req.params)
 
       try {
-        // const category = ""
-      } catch (error) {}
+        const deletedata = await deleteCategoryService(deleteCategory)
+
+        res.status(200).json({
+          success: true,
+          message: "Success",
+          data: deletedata,
+        })
+      } catch (error) {
+        console.error(error)
+        next(new ErrorHandler("Coudn't delete!", 500))}
     } catch (error) {
       console.error(error)
       next(new ErrorHandler("Invalid request body!", 400))
