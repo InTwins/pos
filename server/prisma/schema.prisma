@@ -8,108 +8,25 @@ datasource db {
 }
 
 model User {
-  id          Int    @id @default(autoincrement())
-  name        String
-  role        String
-  email       String @unique
-  password    String
-  sales       Sale[]
-}
-
-model Customer {
-  id          Int    @id @default(autoincrement())
-  name        String
-  email       String @unique
-  phoneNumber String
-  address     String
-  imageUrl    String
-  sales       Sale[]
-}
-
-model Product {
-  id            Int          @id @default(autoincrement()) @map("id")
-  name          String
-  categoryId    Int
-  subCategoryId Int
-  printName     String
-  description   String
-  imageUrls     String[]
-  price         String
-  cost          String
-  unit          Int
-  code          String
-  barcode       String
-  brand         Int
-  stock         Int
-  productType   String
-  stockAlert    Int
-  taxRate       Float
-  taxMethod     String
-  category      Category     @relation(fields: [categoryId], references: [id])
-  subCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
-  unitInfo      Unit         @relation(fields: [unit], references: [id])
-  brandInfo     Brand        @relation(fields: [brand], references: [id])
-}
-
-model Category {
-  id            Int           @id @default(autoincrement())
-  name          String
-  imageUrl      String
-  code          String
-  description   String
-  subcategories SubCategory[]
-  products      Product[]
-}
-
-model SubCategory {
-  id          Int       @id @default(autoincrement())
-  name        String
-  code        String
-  description String
-  imageUrl    String
-  categoryId  Int
-  category    Category  @relation(fields: [categoryId], references: [id])
-  products    Product[]
-}
-
-model Unit {
-  id           Int       @id @default(autoincrement())
-  name         String
-  shortcode    String
-  baseUnit     String
-  baseQuantity Float
-  products     Product[]
+  id       Int    @id @default(autoincrement())
+  name     String
+  role     String
+  email    String @unique
+  password String
 }
 
 model Brand {
-  id          Int       @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   name        String
   description String
-  imageUrl    String
-  products    Product[]
 }
 
-model Stock {
-  id        Int      @id @default(autoincrement())
-  name      String
-  code      String
-  date      DateTime
-  unitPrice Float
-  quantity  Int
+model Category{
+  id          Int    @id @default(autoincrement())
+  name        String
 }
 
-model Sale {
-  id            Int      @id @default(autoincrement())
-  createdAt     DateTime
-  products      String[]
-  customerId    Int
-  userId        Int
-  paymentStatus String
-  paymentAmount Float
-  paidAmount    Float
-  dueAmount     Float
-  paymentMethod String
-  note          String
-  customer      Customer @relation(fields: [customerId], references: [id])
-  user          User     @relation(fields: [userId], references: [id])
+model SubCategory{
+  id          Int    @id @default(autoincrement())
+  name        String
 }

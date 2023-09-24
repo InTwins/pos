@@ -1,31 +1,35 @@
-import { User } from "@prisma/client";
-import { prisma } from "../../lib/prisma-client";
+import type { User } from "@prisma/client"
+import { hashPassword } from "../../lib/hash-password"
+import { prisma } from "../../lib/prisma-client"
 
-type UserType = Omit<User, "id">;
+type UserType = Omit<User, "id">
 
 export const getUserByEmail = async (email: string) => {
-  try {
-    const dbUser = prisma.user.findUnique({
-      where: { email },
-    });
-    return dbUser;
-  } catch (error) {
-    throw error;
-  }
-};
+  return await prisma.user.findUnique({
+    where: { email },
+  })
+}
 
-export const createUser = async ({ email, password, role, name }: UserType) => {
-  try {
-    const dbUser = await prisma.user.create({
-      data: {
-        email,
-        password,
-        role,
-        name,
-      },
-    });
-    return dbUser;
-  } catch (error) {
-    throw error;
-  }
-};
+export const createUserService = async ({
+  email,
+  password,
+  role,
+  name,
+}: UserType) => {
+  const hashedPassword = await hashPassword(password)
+
+  return await prisma.user.create({
+    data: {
+      email,
+      password: hashedPassword,
+      role,
+      name,
+    },
+  })
+}
+
+// export const loginUserService = async ({email, password}: {email: string, password: string}) => {
+
+//   const matchPassword = await comparePassword(password, dbUser?.password)
+
+// }

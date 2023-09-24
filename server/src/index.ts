@@ -1,23 +1,23 @@
-import { app } from "./app/app";
-import { connectDB } from "./lib/connect-db";
-import { connectRedis } from "./lib/connect-redis";
-import { checkEnvVariables, getEnv } from "./lib/env";
+import { app } from "./app/app"
+import { connectDB } from "./lib/connect-db"
+import { checkEnvVariables, getEnv } from "./lib/env"
 
-const PORT = getEnv("PORT");
+const PORT = getEnv("PORT")
 
-const setup = async () => {
+const setup = async (): Promise<void> => {
   try {
-    checkEnvVariables();
-    await connectDB();
-    connectRedis();
+    checkEnvVariables()
+    await connectDB()
 
     app.listen(PORT, () => {
-      console.log(`Listening on port ${PORT}!`);
-    });
+      console.log(`Listening on port ${PORT}!`)
+    })
   } catch (error) {
-    console.error(error);
-    process.exit(1);
+    console.error(error)
+    process.exit(1)
   }
-};
+}
 
-setup();
+setup().catch(error => {
+  console.error(error)
+})
