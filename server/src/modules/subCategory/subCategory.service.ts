@@ -30,10 +30,9 @@ export const updateSubCategoryService = async ({
 }
 
 export const deleteSubCategoryService = async ({ id }: { id: number }) => {
-  const data = await prisma.subCategory.delete({
+  return await prisma.subCategory.delete({
     where: {
       id,
     },
   })
-  return data
 }
