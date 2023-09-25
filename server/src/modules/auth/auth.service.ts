@@ -27,9 +27,3 @@ export const createUserService = async ({
     },
   })
 }
-
-// export const loginUserService = async ({email, password}: {email: string, password: string}) => {
-
-//   const matchPassword = await comparePassword(password, dbUser?.password)
-
-// }

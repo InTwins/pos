@@ -1,5 +1,9 @@
 import cors from "cors"
-import express, { type NextFunction, type Request, type Response } from "express"
+import express, {
+  type NextFunction,
+  type Request,
+  type Response,
+} from "express"
 import morgan from "morgan"
 import { router } from "./routes"
 import cookieParser from "cookie-parser"
@@ -15,6 +19,7 @@ app.use(morgan("dev"))
 app.use(cookieParser())
 app.use(
   cors({
+    credentials: true,
     origin: getEnv("ORIGIN"),
   }),
 )

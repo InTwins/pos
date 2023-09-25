@@ -6,7 +6,9 @@ import { Icons } from "@/components/icons"
 import { useSignUpForm } from "./signup-form.hook"
 
 export const SignUpForm = () => {
-  const { isLoading, register, submitHandler } = useSignUpForm()
+  const { isLoading, register, submitHandler, error, data } = useSignUpForm()
+
+  console.log({ error, data })
 
   return (
     <div className={cn("grid gap-6")}>

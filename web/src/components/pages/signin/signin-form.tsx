@@ -20,24 +20,22 @@ export const SignInForm = () => {
               {...register("email", { required: "Email is required!" })}
               placeholder="name@example.com"
               type="email"
-              autoCapitalize="none"
-              autoComplete=""
-              autoCorrect="off"
+              name="email"
+              id="email"
               disabled={isLoading}
             />
           </div>
 
           <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="email">
+            <Label className="sr-only" htmlFor="password">
               Password
             </Label>
             <Input
               {...register("password", { required: "Password is required!" })}
               placeholder="Enter Password"
               type="password"
-              autoCapitalize="none"
-              autoComplete=""
-              autoCorrect="off"
+              name="password"
+              id="password"
               disabled={isLoading}
             />
           </div>

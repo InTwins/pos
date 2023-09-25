@@ -8,10 +8,10 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   name     String
-  role     String
-  email    String @unique
+  role     String? @default("user")
+  email    String  @unique
   password String
 }
 
@@ -21,12 +21,12 @@ model Brand {
   description String
 }
 
-model Category{
-  id          Int    @id @default(autoincrement())
-  name        String
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String
 }
 
-model SubCategory{
-  id          Int    @id @default(autoincrement())
-  name        String
+model SubCategory {
+  id   Int    @id @default(autoincrement())
+  name String
 }

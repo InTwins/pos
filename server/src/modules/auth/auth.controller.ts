@@ -1,15 +1,15 @@
 import { type NextFunction, type Request, type Response } from "express"
 import { catchAsyncError } from "../../lib/catch-async-error"
 import { ErrorHandler } from "../../lib/error-handler"
-import { createUserService, getUserByEmail } from "./user.service"
-import { UserLoginValidator, UserRegistrationValidator } from "./user.validator"
+import { createUserService, getUserByEmail } from "./auth.service"
+import { SignInValidator, SignUpValidator } from "./auth.validator"
 import { comparePassword } from "../../lib/hash-password"
 import { createToken } from "../../lib/jwt-helper"
 
-export const registerUser = catchAsyncError(
+export const signUpController = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const user = UserRegistrationValidator.parse(req.body)
+      const user = SignUpValidator.parse(req.body)
       const { name, email, role, password } = user
 
       // Check for existing user
@@ -32,10 +32,10 @@ export const registerUser = catchAsyncError(
   },
 )
 
-export const loginUser = catchAsyncError(
+export const signInController = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const user = UserLoginValidator.parse(req.body)
+      const user = SignInValidator.parse(req.body)
       const { email, password } = user
 
       try {
@@ -97,3 +97,12 @@ export const signOutController = catchAsyncError(
     })
   },
 )
+
+// export const meController = catchAsyncError(
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     res.status(200).json({
+//       success: true,
+//       message: "Sign Out Successful!",
+//     })
+//   },
+// )
