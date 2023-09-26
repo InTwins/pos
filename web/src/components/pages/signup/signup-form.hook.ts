@@ -1,30 +1,47 @@
-import { useForm, SubmitHandler } from "react-hook-form"
+import { useSignUpMutation } from "@/store/features/auth/auth-api"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { type InputType, signUpSchema } from "./signup-form.validator"
-import { useSignUp } from "@/hooks/use-auth"
+import { useState } from "react"
+import { SubmitHandler, useForm } from "react-hook-form"
+import { signUpSchema, type InputType } from "./signup-form.validator"
+import { useNavigate } from "react-router-dom"
 
 export const useSignUpForm = () => {
-  const { mutate, error, data } = useSignUp()
+  const [matchPasswordError, setMatchPasswordError] = useState(false)
+  const navigate = useNavigate()
+
+  const [signUp, { isError, isLoading, data }] = useSignUpMutation()
 
   const {
     register,
     handleSubmit,
-    formState: { isLoading, errors: formErrors },
+    formState: { errors: formErrors },
   } = useForm<InputType>({
     resolver: zodResolver(signUpSchema),
   })
 
   const onSubmit: SubmitHandler<InputType> = async (data) => {
-    mutate(data)
+    if (data.password !== data.confirmPassword) {
+      setMatchPasswordError(true)
+      return
+    }
+    setMatchPasswordError(false)
+    try {
+      const response = await signUp(data).unwrap()
+      console.log(response)
+      navigate("/dashboard")
+    } catch (error) {
+      console.error(error)
+    }
   }
   const submitHandler = handleSubmit(onSubmit)
 
   return {
-    error,
-    data,
     register,
     isLoading,
     formErrors,
     submitHandler,
+    matchPasswordError,
+    isError,
+    data,
   }
 }

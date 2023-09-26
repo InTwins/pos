@@ -6,10 +6,14 @@ import { Icons } from "@/components/icons"
 import { useSignInForm } from "./signin-form.hook"
 
 export const SignInForm = () => {
-  const { register, isLoading, submitHandler } = useSignInForm()
+  const { register, isLoading, submitHandler, error, formErrors } = useSignInForm()
 
   return (
     <div className={cn("grid gap-6")}>
+      {error && error.data && (
+        <div className="my-2 rounded border bg-red-100 px-3 py-1.5 text-red-700">{error?.data?.message as string}</div>
+      )}
+
       <form onSubmit={submitHandler}>
         <div className="grid gap-2">
           <div className="grid gap-1">

@@ -30,7 +30,6 @@ export const WelcomePage = () => {
             <Button>
               <Link
                 to="/signup"
-                target="_blank"
                 className="flex items-center justify-center gap-1 rounded text-center ring-gray-200 ring-offset-2 transition focus-visible:ring-2"
                 rel="noopener"
               >
@@ -53,7 +52,7 @@ export const WelcomePage = () => {
               </Link>
             </Button>
             <Button variant={"outline"}>
-              <Link rel="noopener" to="/signin" className="flex items-center justify-center gap-1" target="_blank">
+              <Link rel="noopener" to="/signin" className="flex items-center justify-center gap-1">
                 <svg
                   className="h-4 w-4 text-black"
                   name="bx:bxs-cloud-download"

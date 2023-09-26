@@ -1,32 +1,26 @@
 import { useForm, SubmitHandler } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { InputType, signInSchema } from "./signin-form.validator"
-import { useSignIn } from "@/hooks/use-auth"
-// import { getBrands } from "@/lib/api/brand.api"
-// import { useEffect } from "react"
-// import { useNavigate, useLocation } from "react-router-dom"
-// import { useEffect } from "react"
-// import { useBrands } from "../../../hooks/use-brands"
+import { useSignInMutation } from "@/store/features/auth/auth-api"
+import { useNavigate } from "react-router-dom"
 
 export const useSignInForm = () => {
-  const { mutate } = useSignIn()
-  // const navigate = useNavigate()
-  // const location = useLocation()
-  // const from = location?.state?.from?.pathname ?? "/"
+  const navigate = useNavigate()
+  const [signIn, { isLoading, error }] = useSignInMutation()
 
   const {
     register,
     handleSubmit,
     reset,
-    formState: { isLoading, errors },
+    formState: { errors: formErrors },
   } = useForm<InputType>({
     resolver: zodResolver(signInSchema),
   })
 
   const onSubmit: SubmitHandler<InputType> = async (data) => {
     try {
-      console.log(data)
-      mutate(data)
+      await signIn(data).unwrap()
+      navigate("/dashboard")
     } catch (error) {
       console.error(error)
     }
@@ -39,7 +33,8 @@ export const useSignInForm = () => {
   return {
     register,
     isLoading,
-    errors,
+    formErrors,
+    error,
     submitHandler,
     handleSubmit,
     onSubmit,

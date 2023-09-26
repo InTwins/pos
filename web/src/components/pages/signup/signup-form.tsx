@@ -6,9 +6,7 @@ import { Icons } from "@/components/icons"
 import { useSignUpForm } from "./signup-form.hook"
 
 export const SignUpForm = () => {
-  const { isLoading, register, submitHandler, error, data } = useSignUpForm()
-
-  console.log({ error, data })
+  const { isLoading, register, submitHandler, formErrors, matchPasswordError } = useSignUpForm()
 
   return (
     <div className={cn("grid gap-6")}>
@@ -55,6 +53,7 @@ export const SignUpForm = () => {
               autoCorrect="off"
               disabled={isLoading}
             />
+            {formErrors.password && <p className="text-xs text-red-500">{formErrors.password.message}</p>}
           </div>
           <div className="grid gap-1">
             <Label className="sr-only" htmlFor="email">
@@ -71,6 +70,7 @@ export const SignUpForm = () => {
               autoCorrect="off"
               disabled={isLoading}
             />
+            {matchPasswordError && <p>"Passwords don't match!"</p>}
           </div>
           <Button type="submit" disabled={isLoading}>
             {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}

@@ -1,55 +1,11 @@
-import { useMutation } from "@tanstack/react-query"
-import { signIn, signOut, signUp } from "@/lib/api/auth.api"
+import { useSelector } from "react-redux"
 
-export const useSignIn = () => {
-  const { mutate, isLoading, error, isError } = useMutation({
-    mutationFn: signIn,
-    onSuccess: () => {
-      console.log("Success!")
-    },
-  })
+export const useAuth = () => {
+  const auth = useSelector((state: any) => state?.auth)
 
-  return {
-    mutate,
-    isLoading,
-    error,
-    isError,
+  if (auth?.token && auth?.user) {
+    return true
   }
+
+  return false
 }
-
-export const useSignUp = () => {
-  const { mutate, isLoading, error, isError, data } = useMutation({
-    mutationFn: signUp,
-    onSuccess: () => {
-      console.log("Success!")
-    },
-  })
-
-  return {
-    mutate,
-    isLoading,
-    error,
-    isError,
-    data,
-  }
-}
-
-export const useSignOut = () => {
-  const { mutate, isLoading, error, isError } = useMutation({
-    mutationFn: signOut,
-    onSuccess: () => {
-      console.log("Success!")
-    },
-  })
-
-  return {
-    mutate,
-    isLoading,
-    error,
-    isError,
-  }
-}
-
-// export const useAuth = () => {
-
-// const

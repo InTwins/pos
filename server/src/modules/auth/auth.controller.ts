@@ -19,12 +19,35 @@ export const signUpController = catchAsyncError(
         return
       }
 
-      const dbUser = await createUserService({ name, email, password, role })
-      res.json({
-        success: true,
-        message: "User created successfully!",
-        data: dbUser,
-      })
+      try {
+        const dbUser = await createUserService({ name, email, password, role })
+
+        try {
+          const token = await createToken({
+            id: dbUser.id,
+            email: dbUser.email,
+          })
+
+          res.cookie("authToken", token, {
+            httpOnly: true,
+            maxAge: 60 * 60 * 1000,
+          })
+
+          res.status(200).json({
+            success: true,
+            message: "Sign Up successful!",
+            data: {
+              token,
+              user: dbUser,
+            },
+          })
+        } catch (error) {
+          console.error(error)
+          next(new ErrorHandler("Token creation failed!", 500))
+        }
+      } catch (error: any) {
+        next(new ErrorHandler("Internal Server Error!", 500))
+      }
     } catch (error: any) {
       console.error(error)
       next(new ErrorHandler("Invalid request body!", 400))
@@ -68,6 +91,7 @@ export const signInController = catchAsyncError(
             message: "Login successful!",
             data: {
               token,
+              user: dbUser,
             },
           })
         } catch (error) {
