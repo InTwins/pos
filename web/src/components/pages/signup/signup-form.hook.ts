@@ -4,10 +4,12 @@ import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { signUpSchema, type InputType } from "./signup-form.validator"
 import { useNavigate } from "react-router-dom"
+import { useToast } from "@/components/ui/use-toast"
 
 export const useSignUpForm = () => {
   const [matchPasswordError, setMatchPasswordError] = useState(false)
   const navigate = useNavigate()
+  const { toast } = useToast()
 
   const [signUp, { isError, isLoading, data }] = useSignUpMutation()
 
@@ -26,11 +28,18 @@ export const useSignUpForm = () => {
     }
     setMatchPasswordError(false)
     try {
-      const response = await signUp(data).unwrap()
-      console.log(response)
+      await signUp(data).unwrap()
+      toast({
+        title: "Success",
+        description: "You have successfully signed up",
+      })
       navigate("/dashboard")
     } catch (error) {
-      console.error(error)
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Something went wrong",
+      })
     }
   }
   const submitHandler = handleSubmit(onSubmit)
