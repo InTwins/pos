@@ -33,12 +33,14 @@ export const signUpController = catchAsyncError(
             maxAge: 60 * 60 * 1000,
           })
 
+          const { password, ...rest } = dbUser
+
           res.status(200).json({
             success: true,
             message: "Sign Up successful!",
             data: {
               token,
-              user: dbUser,
+              user: rest,
             },
           })
         } catch (error) {
@@ -86,12 +88,14 @@ export const signInController = catchAsyncError(
             maxAge: 60 * 60 * 1000,
           })
 
+          const { password, ...rest } = dbUser
+
           res.status(200).json({
             success: true,
             message: "Login successful!",
             data: {
               token,
-              user: dbUser,
+              user: rest,
             },
           })
         } catch (error) {
@@ -122,11 +126,17 @@ export const signOutController = catchAsyncError(
   },
 )
 
-// export const meController = catchAsyncError(
-//   async (req: Request, res: Response, next: NextFunction) => {
-//     res.status(200).json({
-//       success: true,
-//       message: "Sign Out Successful!",
-//     })
-//   },
-// )
+export const meController = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { password, ...rest } = req.user ?? {}
+
+    res.status(200).json({
+      success: true,
+      message: "Successful!",
+      data: {
+        user: rest,
+        token: req.cookies.authToken,
+      },
+    })
+  },
+)
