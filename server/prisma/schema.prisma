@@ -7,26 +7,113 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  ADMIN
+  MANAGER
+  SALES_PERSON
+}
+
 model User {
-  id       String  @id @default(uuid())
-  name     String
-  role     String? @default("user")
-  email    String  @unique
-  password String
+  id        String   @id @default(uuid())
+  name      String
+  role      UserRole @default(SALES_PERSON)
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  sales     Sale[]
 }
 
 model Brand {
-  id          Int    @id @default(autoincrement())
+  id          String    @id @default(uuid())
   name        String
-  description String
+  description String    @default("")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
 }
 
 model Category {
-  id   Int    @id @default(autoincrement())
-  name String
+  id            String        @id @default(uuid())
+  name          String
+  description   String
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  subCategories SubCategory[]
+  products      Product[]
 }
 
 model SubCategory {
-  id   Int    @id @default(autoincrement())
-  name String
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  Category    Category  @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  categoryId  String
+  products    Product[]
+}
+
+model Unit {
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
+}
+
+model Customer {
+  id          String   @id @default(uuid())
+  name        String
+  email       String
+  phoneNumber String
+  address     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  sales       Sale[]
+}
+
+model Product {
+  id            String      @id @default(uuid())
+  name          String
+  description   String
+  imageUrl      String
+  brand         Brand       @relation(fields: [brandId], references: [id])
+  brandId       String
+  category      Category    @relation(fields: [categoryId], references: [id])
+  categoryId    String
+  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
+  subCategoryId String
+  unit          Unit        @relation(fields: [unitId], references: [id])
+  unitId        String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  stocks        Stock[]
+}
+
+model Stock {
+  id            String   @id @default(uuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  product       Product  @relation(fields: [productId], references: [id])
+  productId     String
+  quantity      Float
+  price         Float
+  purchasePrice Float
+}
+
+model Sale {
+  id              String   @id @default(uuid())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  customer        Customer @relation(fields: [customerId], references: [id])
+  customerId      String
+  totalPrice      Float
+  discountedPrice Float
+  status          String
+  paidAmount      Float
+  dueAmount       Float
+  seller          User     @relation(fields: [sellerId], references: [id])
+  sellerId        String
 }

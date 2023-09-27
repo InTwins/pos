@@ -58,7 +58,14 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
+
+    me: builder.query({
+      query: () => ({
+        url: "auth/me",
+        method: "GET",
+      }),
+    }),
   }),
 })
 
-export const { useSignInMutation, useSignUpMutation, useSignOutMutation } = authApi
+export const { useSignInMutation, useSignUpMutation, useSignOutMutation, useMeQuery } = authApi
