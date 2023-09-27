@@ -10,7 +10,7 @@ import { AllBrands } from "@/components/pages/dashboard/brands/all-brands"
 import { AllCategories } from "@/components/pages/dashboard/categories/all-categories"
 import { AllProducts } from "@/components/pages/dashboard/products/all-products"
 import { AllUnits } from "@/components/pages/dashboard/units/all-units"
-import { AddCatgory } from "@/components/pages/dashboard/categories/add-category"
+import { AddCategory } from "@/components/pages/dashboard/categories/add-category"
 import { AddProduct } from "@/components/pages/dashboard/products/add-product"
 import { AddUnit } from "@/components/pages/dashboard/units/add-unit"
 import { AddBrand } from "@/components/pages/dashboard/brands/add-brand"
@@ -64,7 +64,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "categories/create",
-            element: <AddCatgory />,
+            element: <AddCategory />,
           },
           {
             path: "products",
