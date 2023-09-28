@@ -6,15 +6,15 @@ export const createBrandValidator = z.object({
 })
 
 export const getSingleBrandValidator = z.object({
-  id: z.coerce.number(),
+  id: z.string(),
 })
 
 export const updateBrandValidator = z.object({
-  id: z.coerce.number(),
+  id: z.string(),
   name: z.string().min(2, "Enter minimun 2 characters"),
   description: z.string().min(5, "Enter minimun 5 characters"),
 })
 
 export const deleteBrandValidator = z.object({
-  id: z.coerce.number(),
+  id: z.string(),
 })

@@ -18,7 +18,7 @@ export const getBrandsServive = async () => {
   return await prisma.brand.findMany({})
 }
 
-export const getSingleBrandServive = async (id: number) => {
+export const getSingleBrandServive = async (id: string) => {
   return await prisma.brand.findUnique({
     where: {
       id,
@@ -33,7 +33,7 @@ export const updateBrandServive = async ({
 }: {
   name: string
   description: string
-  id: number
+  id: string
 }) => {
   return await prisma.brand.updateMany({
     where: {
@@ -46,11 +46,10 @@ export const updateBrandServive = async ({
   })
 }
 
-export const deleteBrandServive = async (id: number) => {
-  const data = await prisma.brand.delete({
+export const deleteBrandServive = async (id: string) => {
+  return await prisma.brand.delete({
     where: {
       id,
     },
   })
-  return data
 }

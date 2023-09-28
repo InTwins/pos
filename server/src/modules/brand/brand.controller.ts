@@ -29,12 +29,10 @@ export const createBrandController = catchAsyncError(
           data: brand,
         })
       } catch (error) {
-        console.error(error)
-        next(new ErrorHandler("Could not create brand!", 500))
+        next(new ErrorHandler("Could not create brand!", 500, error))
       }
     } catch (error) {
-      console.error(error)
-      next(new ErrorHandler("Invalid request body!", 400))
+      next(new ErrorHandler("Invalid request body!", 400, error))
     }
   },
 )
@@ -50,8 +48,7 @@ export const getBrandsController = catchAsyncError(
         data: brandsData,
       })
     } catch (error) {
-      console.error(error)
-      next(new ErrorHandler("Couldn't get brands data!", 500))
+      next(new ErrorHandler("Couldn't get brands data!", 500, error))
     }
   },
 )
@@ -70,12 +67,10 @@ export const getSingleBrandController = catchAsyncError(
           data: brandData,
         })
       } catch (error) {
-        console.error(error)
-        next(new ErrorHandler("Counldn't get brand data!", 500))
+        next(new ErrorHandler("Counldn't get brand data!", 500, error))
       }
     } catch (error) {
-      console.error(error)
-      next(new ErrorHandler("Invalid request body!", 400))
+      next(new ErrorHandler("Invalid request body!", 400, error))
     }
   },
 )
@@ -97,12 +92,10 @@ export const updateBrandController = catchAsyncError(
           success: true,
         })
       } catch (error) {
-        console.error(error)
-        next(new ErrorHandler("Could not update brand info!", 500))
+        next(new ErrorHandler("Could not update brand info!", 500, error))
       }
     } catch (error) {
-      console.error(error)
-      next(new ErrorHandler("Invalid request body.", 400))
+      next(new ErrorHandler("Invalid request body.", 400, error))
     }
   },
 )
@@ -120,12 +113,10 @@ export const deleteBrandController = catchAsyncError(
           data: deleteBrand,
         })
       } catch (error) {
-        console.error(error)
-        next(new ErrorHandler("Could not delete brand!", 500))
+        next(new ErrorHandler("Could not delete brand!", 500, error))
       }
     } catch (error) {
-      console.error(error)
-      next(new ErrorHandler("Invalid request body!", 400))
+      next(new ErrorHandler("Invalid request body!", 400, error))
     }
   },
 )

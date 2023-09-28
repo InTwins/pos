@@ -1,9 +1,10 @@
 import { z } from "zod"
+import { UserRole } from "@prisma/client"
 
 export const SignUpValidator = z.object({
   name: z.string(),
   email: z.string().email(),
-  role: z.string().default("user"),
+  role: z.nativeEnum(UserRole).default("SALES_PERSON"),
   password: z.string(),
 })
 
