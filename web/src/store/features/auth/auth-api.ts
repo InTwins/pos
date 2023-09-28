@@ -37,7 +37,6 @@ export const authApi = apiSlice.injectEndpoints({
             token: result.data?.data?.token,
             user: result.data?.data?.user,
           }
-          localStorage.setItem("userAuth", JSON.stringify(data))
           dispatch(userLoggedIn(data))
         } catch (error) {
           // console.log(error)
@@ -49,9 +48,9 @@ export const authApi = apiSlice.injectEndpoints({
         url: "auth/signout",
         method: "GET",
       }),
-      onQueryStarted: async (_, { dispatch }) => {
+      onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
         try {
-          localStorage.removeItem("userAuth")
+          await queryFulfilled
           dispatch(userLoggedOut())
         } catch (error) {
           // console.log(error)
@@ -64,6 +63,19 @@ export const authApi = apiSlice.injectEndpoints({
         url: "auth/me",
         method: "GET",
       }),
+
+      onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
+        try {
+          const result = await queryFulfilled
+          const data = {
+            token: result.data?.data?.token,
+            user: result.data?.data?.user,
+          }
+          dispatch(userLoggedIn(data))
+        } catch (error) {
+          // console.log(error)
+        }
+      },
     }),
   }),
 })
