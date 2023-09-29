@@ -24,6 +24,7 @@ const env = {
   JWT_SECRET: process.env.JWT_SECRET,
   JWT_ISSUER: process.env.JWT_ISSUER,
   JWT_ACTIVATION_EXPIRATION: process.env.JWT_ACTIVATION_EXPIRATION,
+  HOSTNAME: process.env.HOSTNAME,
 }
 
 type EnvKey = keyof typeof env

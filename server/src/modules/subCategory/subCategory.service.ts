@@ -2,11 +2,11 @@ import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
-export const createSubCategoryService = async ({ name }: { name: string }) => {
-  return await prisma.subCategory.create({
-    data: { name },
-  })
-}
+// export const createSubCategoryService = async ({ name }: { name: string }) => {
+//   return await prisma.subCategory.create({
+//     data: { name },
+//   })
+// }
 
 export const getSubCategoryService = async () => {
   return await prisma.subCategory.findMany({})
@@ -17,7 +17,7 @@ export const updateSubCategoryService = async ({
   id,
 }: {
   name: string
-  id: number
+  id: string
 }) => {
   return await prisma.subCategory.update({
     where: {
@@ -29,7 +29,7 @@ export const updateSubCategoryService = async ({
   })
 }
 
-export const deleteSubCategoryService = async ({ id }: { id: number }) => {
+export const deleteSubCategoryService = async ({ id }: { id: string }) => {
   return await prisma.subCategory.delete({
     where: {
       id,

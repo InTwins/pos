@@ -10,8 +10,7 @@ services:
       - ./postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-    networks:
-      - pos
+    restart: unless-stopped
 
   # redis:
   #   image: redis
@@ -24,17 +23,21 @@ services:
       context: ./server
       dockerfile: Dockerfile
     container_name: api
+    restart: unless-stopped
     ports:
-      - 4000:4000
+      - "4000:4000"
     depends_on:
       - postgres
       # - redis
-    networks:
-      - pos
-  # web:
-  #   build: ./web
-  #   ports:
-  #     - 5173:5173
-networks:
-  pos:
-    driver: bridge
+    # command: ./docker-entrypoint.sh
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile.prod
+    container_name: web
+    restart: unless-stopped
+    # environment:
+    #   VITE_API_URL: http://localhost:6000/api/v1
+
+    ports:
+      - "3000:80"

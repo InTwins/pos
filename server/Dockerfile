@@ -21,12 +21,20 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+RUN yarn prisma:generate
+
 RUN yarn build
 
-EXPOSE 3000
+EXPOSE 4000
 
-ENV PORT 3000
+ENV PORT 4000
+ENV ORIGIN http://localhost:3000
+ENV JWT_SECRET pos
+ENV JWT_ISSUER pos
+ENV JWT_ACTIVATION_EXPIRATION 5m
+ENV REDIS_URL redis://localhost:6379
+ENV DATABASE_URL postgresql://postgres:postgres@postgres:5432/mydb?schema=public
 # set hostname to localhost
 ENV HOSTNAME "0.0.0.0"
 
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/src/index.js"]

@@ -9,7 +9,7 @@ const setup = async (): Promise<void> => {
     checkEnvVariables()
     await connectDB()
 
-    app.listen(PORT, () => {
+    app.listen(parseInt(PORT), "0.0.0.0", () => {
       console.log(`Listening on port ${PORT}!`)
     })
   } catch (error) {

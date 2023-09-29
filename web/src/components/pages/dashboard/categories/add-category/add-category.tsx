@@ -9,7 +9,7 @@ import { useAddCategory } from "./add-category.hook"
 import { Icons } from "@/components/icons"
 
 export const AddCategory = () => {
-  const { register, submitHandler, isLoading } = useAddCategory()
+  const { register, submitHandler, isLoading, isUpdateMode } = useAddCategory()
 
   return (
     <div className=" h-full w-full grow items-center justify-center p-4">
@@ -24,10 +24,8 @@ export const AddCategory = () => {
           <div className="space-y-8">
             <form onSubmit={submitHandler}>
               <div className="space-y-2">
-                <h2 className="mt-4 text-3xl font-semibold">Add new category</h2>
+                <h2 className="mt-4 text-3xl font-semibold">{isUpdateMode ? "Update Category" : "Add New Category"}</h2>
               </div>
-
-              {/* <div>{JSON.stringify(formErrors)}</div> */}
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
@@ -44,7 +42,7 @@ export const AddCategory = () => {
                 </div>
                 <Button className="bg-gray-800 text-white" type="submit" disabled={isLoading}>
                   {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
-                  Create Category
+                  {isUpdateMode ? "Update Category" : "Add Category"}
                 </Button>
               </div>
             </form>

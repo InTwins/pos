@@ -2,40 +2,40 @@ import type { NextFunction, Request, Response } from "express"
 import { catchAsyncError } from "../../lib/catch-async-error"
 import { ErrorHandler } from "../../lib/error-handler"
 import {
-  createSubCategoryValidator,
+  // createSubCategoryValidator,
   deleteSubCategoryValidator,
   updateSubCategoryValidator,
 } from "./subCategory.validator"
 import {
-  createSubCategoryService,
+  // createSubCategoryService,
   deleteSubCategoryService,
   getSubCategoryService,
   updateSubCategoryService,
 } from "./subCategory.service"
 
-export const createSubCategory = catchAsyncError(
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const subCategoryValidate = createSubCategoryValidator.parse(req.body)
+// export const createSubCategory = catchAsyncError(
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//       const subCategoryValidate = createSubCategoryValidator.parse(req.body)
 
-      try {
-        const subCategory = await createSubCategoryService(subCategoryValidate)
+//       try {
+//         const subCategory = await createSubCategoryService(subCategoryValidate)
 
-        res.status(200).json({
-          success: true,
-          message: "Sub category created successfully!",
-          data: subCategory,
-        })
-      } catch (error) {
-        console.error(error)
-        next(new ErrorHandler("Subcategory couldn't created.", 500))
-      }
-    } catch (error) {
-      console.error(error)
-      next(new ErrorHandler("Invalid request!", 400))
-    }
-  },
-)
+//         res.status(200).json({
+//           success: true,
+//           message: "Sub category created successfully!",
+//           data: subCategory,
+//         })
+//       } catch (error) {
+//         console.error(error)
+//         next(new ErrorHandler("Subcategory couldn't created.", 500))
+//       }
+//     } catch (error) {
+//       console.error(error)
+//       next(new ErrorHandler("Invalid request!", 400))
+//     }
+//   },
+// )
 
 export const getSubCategory = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {

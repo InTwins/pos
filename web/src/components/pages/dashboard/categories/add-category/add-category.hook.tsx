@@ -3,10 +3,21 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { InputType, addCategorySchema } from "./add-category.validator"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useToast } from "@/components/ui/use-toast"
+import { useState } from "react"
+import { useLocation, useSearchParams } from "react-router-dom"
 
 export const useAddCategory = () => {
+  const [isUpdateMode] = useState(false)
   const [createCategory, { isLoading, isError }] = useCreateCategoryMutation()
   const { toast } = useToast()
+  const location = useLocation()
+  const searchParams = useSearchParams()
+
+  console.log({
+    location,
+    searchParams,
+    update: location.pathname.includes("update"),
+  })
 
   const {
     register,
@@ -43,5 +54,6 @@ export const useAddCategory = () => {
     formErrors,
     isError,
     submitHandler,
+    isUpdateMode,
   }
 }

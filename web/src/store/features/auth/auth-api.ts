@@ -1,11 +1,12 @@
 import { apiSlice } from "../api/api-slice"
 import { userLoggedIn, userLoggedOut } from "./auth-slice"
+import { BASE_URL } from "@/lib/config/constants"
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     signUp: builder.mutation({
       query: (data) => ({
-        url: "auth/signup",
+        url: `${BASE_URL}/auth/signup`,
         method: "POST",
         body: data,
       }),
@@ -26,7 +27,7 @@ export const authApi = apiSlice.injectEndpoints({
 
     signIn: builder.mutation({
       query: (data) => ({
-        url: "auth/signin",
+        url: `${BASE_URL}/auth/signin`,
         method: "POST",
         body: data,
       }),
@@ -45,7 +46,7 @@ export const authApi = apiSlice.injectEndpoints({
     }),
     signOut: builder.mutation({
       query: () => ({
-        url: "auth/signout",
+        url: `${BASE_URL}/auth/signout`,
         method: "GET",
       }),
       onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
@@ -60,7 +61,7 @@ export const authApi = apiSlice.injectEndpoints({
 
     me: builder.query({
       query: () => ({
-        url: "auth/me",
+        url: `${BASE_URL}/auth/me`,
         method: "GET",
       }),
 
