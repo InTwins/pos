@@ -22,6 +22,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 RUN yarn prisma:generate
+RUN yarn prisma:migrate
 
 RUN yarn build
 
