@@ -1,13 +1,14 @@
+import { BASE_URL } from "@/lib/config/constants"
 import { apiSlice } from "../api/api-slice"
 
 export const brandApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getBrands: builder.query({
-      query: () => "/brands",
+      query: () => `${BASE_URL}/brands`,
     }),
     createBrand: builder.mutation({
       query: (body) => ({
-        url: "/brands",
+        url: `${BASE_URL}/brands`,
         method: "POST",
         body,
       }),

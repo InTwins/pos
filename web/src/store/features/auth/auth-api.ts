@@ -55,6 +55,7 @@ export const authApi = apiSlice.injectEndpoints({
           dispatch(userLoggedOut())
         } catch (error) {
           // console.log(error)
+          dispatch(userLoggedOut())
         }
       },
     }),
