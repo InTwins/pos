@@ -14,7 +14,7 @@ RUN \
 COPY . .
 
 ENV NODE_ENV production
-ENV VITE_API_URL http://localhost:4000/api/v1
+ENV VITE_API_URL http://pos-api.teescope.com/api/v1
 
 RUN yarn build
 
