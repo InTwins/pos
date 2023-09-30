@@ -17,7 +17,7 @@ export const authApi = apiSlice.injectEndpoints({
             token: result.data?.data?.token,
             user: result.data?.data?.user,
           }
-          localStorage.setItem("userAuth", JSON.stringify(data))
+          // localStorage.setItem("userAuth", JSON.stringify(data))
           dispatch(userLoggedIn(data))
         } catch (error) {
           // console.log(error)

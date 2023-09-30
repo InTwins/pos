@@ -20,7 +20,7 @@ export const WelcomePage = () => {
         </div>
         <div>
           <h1 className="text-5xl font-bold lg:text-6xl lg:tracking-tight xl:text-7xl xl:tracking-tighter">
-            Marketing website done with Astro
+            InTwins Inventory Management System
           </h1>
           <p className="mt-4 max-w-xl text-lg text-slate-600">
             Astroship is a starter template for startups, marketing websites & landing pages.
