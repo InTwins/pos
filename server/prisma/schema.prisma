@@ -75,21 +75,21 @@ model Customer {
 }
 
 model Product {
-  id            String      @id @default(uuid())
+  id            String       @id @default(uuid())
   name          String
   description   String
   imageUrl      String
-  brand         Brand       @relation(fields: [brandId], references: [id])
+  brand         Brand        @relation(fields: [brandId], references: [id])
   brandId       String
-  category      Category    @relation(fields: [categoryId], references: [id])
+  category      Category     @relation(fields: [categoryId], references: [id])
   categoryId    String
-  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
-  subCategoryId String
-  unit          Unit        @relation(fields: [unitId], references: [id])
+  unit          Unit         @relation(fields: [unitId], references: [id])
   unitId        String
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
   stocks        Stock[]
+  SubCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
+  subCategoryId String?
 }
 
 model Stock {
