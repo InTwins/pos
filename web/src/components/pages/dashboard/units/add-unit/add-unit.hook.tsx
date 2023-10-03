@@ -1,13 +1,13 @@
-import { useCreateCategoryMutation, useUpdateCategoryMutation } from "@/store/features/category/category-api"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { InputType, addCategorySchema } from "./add-category.validator"
+import { InputType, addUnitSchema } from "./add-unit.validator"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useToast } from "@/components/ui/use-toast"
 import { useLocation, useSearchParams } from "react-router-dom"
+import { useCreateUnitMutation, useUpdateUnitMutation } from "@/store/features/unit/unit-api"
 
-export const useAddCategory = () => {
-  const [createCategory, { isLoading: isCreateLoading, isError: isCreateError }] = useCreateCategoryMutation()
-  const [updateCategory, { isLoading: isUpdateLoading, isError: isUpdateError }] = useUpdateCategoryMutation()
+export const useAddUnit = () => {
+  const [createUnit, { isLoading: isCreateLoading, isError: isCreateError }] = useCreateUnitMutation()
+  const [updateUnit, { isLoading: isUpdateLoading, isError: isUpdateError }] = useUpdateUnitMutation()
   const { toast } = useToast()
   const location = useLocation()
   const [searchParams] = useSearchParams()
@@ -22,7 +22,7 @@ export const useAddCategory = () => {
     reset,
     formState: { errors: formErrors },
   } = useForm<InputType>({
-    resolver: zodResolver(addCategorySchema),
+    resolver: zodResolver(addUnitSchema),
     defaultValues: {
       name: searchParams.get("name") || "",
       description: searchParams.get("description") || "",
@@ -32,12 +32,12 @@ export const useAddCategory = () => {
   const onSubmit: SubmitHandler<InputType> = async (data) => {
     if (isUpdateMode && searchParams.get("id")) {
       try {
-        await updateCategory({
+        await updateUnit({
           ...data,
-          categoryId: searchParams.get("id") as string,
+          id: searchParams.get("id") as string,
         }).unwrap()
         toast({
-          title: "Category updated successfully",
+          title: "Unit updated successfully",
           description: "success",
         })
         reset()
@@ -45,14 +45,14 @@ export const useAddCategory = () => {
         console.error(error)
         toast({
           variant: "destructive",
-          title: "Error updating category",
+          title: "Error updating unit",
         })
       }
     } else {
       try {
-        await createCategory(data).unwrap()
+        await createUnit(data).unwrap()
         toast({
-          title: "Category created successfully",
+          title: "Unit created successfully",
           description: "success",
         })
         reset()
@@ -60,7 +60,7 @@ export const useAddCategory = () => {
         console.error(error)
         toast({
           variant: "destructive",
-          title: "Error creating category",
+          title: "Error creating unit",
         })
       }
     }

@@ -1,7 +1,4 @@
 import { Button } from "@/components/ui/button"
-import { ColumnDef, Row } from "@tanstack/react-table"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import { Brand } from "./all-brands.type"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,21 +8,25 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useToast } from "@/components/ui/use-toast"
+import { useDeleteUnitMutation } from "@/store/features/unit/unit-api"
+import { ColumnDef, Row } from "@tanstack/react-table"
+import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { Link } from "react-router-dom"
-import { useDeleteBrandMutation } from "@/store/features/brand/brand-api"
+import { Unit } from "./all-units.type"
 
-const ActionCell = ({ row }: { row: Row<Brand> }) => {
-  const brand = row.original
+// eslint-disable-next-line react-refresh/only-export-components
+const ActionCell = ({ row }: { row: Row<Unit> }) => {
+  const unit = row.original
 
-  const [deleteBrand] = useDeleteBrandMutation()
+  const [deleteUnit] = useDeleteUnitMutation()
   const { toast } = useToast()
 
-  const handleDeleteBrand = async (id: string) => {
+  const handleDeleteUnit = async (id: string) => {
     try {
-      await deleteBrand(id).unwrap()
+      await deleteUnit(id).unwrap()
       toast({
         title: "Success!",
-        description: "Brand deleted successfully!",
+        description: "Unit deleted successfully!",
       })
     } catch (error) {
       toast({
@@ -47,12 +48,12 @@ const ActionCell = ({ row }: { row: Row<Brand> }) => {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem>
-          <Link to={`/dashboard/brands/update?id=${brand.id}&name=${brand.name}&description=${brand.description}`}>
+          <Link to={`/dashboard/units/update?id=${unit.id}&name=${unit.name}&description=${unit.description}`}>
             Edit
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="text-red-500" onClick={() => handleDeleteBrand(brand.id)}>
+        <DropdownMenuItem className="text-red-500" onClick={() => handleDeleteUnit(unit.id)}>
           Delete
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -60,7 +61,7 @@ const ActionCell = ({ row }: { row: Row<Brand> }) => {
   )
 }
 
-export const allBrandColumns: ColumnDef<Brand>[] = [
+export const allUnitColumns: ColumnDef<Unit>[] = [
   {
     accessorKey: "id",
     header: "ID",
@@ -93,6 +94,15 @@ export const allBrandColumns: ColumnDef<Brand>[] = [
   {
     id: "actions",
     enableHiding: false,
+
+    header: () => {
+      return (
+        <Button variant="ghost" onClick={() => {}}>
+          Actions
+        </Button>
+      )
+    },
+
     cell: ActionCell,
   },
 ]

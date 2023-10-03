@@ -1,17 +1,17 @@
-import { Menu } from "@/components/pages/dashboard/layout/menu";
-import { Sidebar } from "@/components/pages/dashboard/layout/sidebar";
-import { Outlet } from "react-router-dom";
+import { Menu } from "@/components/pages/dashboard/layout/menu"
+import { Sidebar } from "@/components/pages/dashboard/layout/sidebar"
+import { Outlet } from "react-router-dom"
 
 export const DashboardPage = () => {
   return (
-    <div className="container p-0 border h-screen overflow-hidden">
-      <div className="block relative">
+    <div className="container h-screen overflow-hidden border p-0">
+      <div className="relative block">
         <Menu />
         <div className="border-t">
           <div className="bg-background">
-            <div className="grid lg:grid-cols-6 items-start relative">
+            <div className="relative grid items-start md:grid-cols-6">
               <Sidebar />
-              <div className="overflow-y-auto col-span-5 h-[calc(100vh_-_40px)] border-l w-full">
+              <div className="col-span-5 h-[calc(100vh_-_40px)] w-full overflow-y-auto border-l">
                 <Outlet />
               </div>
             </div>
@@ -19,5 +19,5 @@ export const DashboardPage = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

@@ -59,6 +59,10 @@ export const router = createBrowserRouter([
             element: <AddBrand />,
           },
           {
+            path: "brands/update",
+            element: <AddBrand />,
+          },
+          {
             path: "categories",
             element: <AllCategories />,
           },
@@ -84,6 +88,10 @@ export const router = createBrowserRouter([
           },
           {
             path: "units/create",
+            element: <AddUnit />,
+          },
+          {
+            path: "units/update",
             element: <AddUnit />,
           },
           {

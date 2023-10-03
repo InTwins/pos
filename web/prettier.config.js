@@ -3,8 +3,8 @@ export default {
   tabWidth: 2,
   semi: false,
   singleQuote: false,
-  printWidth: 120,
+  // printWidth: 50,
   bracketSpacing: true,
   endOfLine: "lf",
-  plugins: ['prettier-plugin-tailwindcss'],
+  plugins: ["prettier-plugin-tailwindcss"],
 }

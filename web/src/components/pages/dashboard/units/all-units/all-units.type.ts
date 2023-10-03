@@ -1,4 +1,4 @@
-export type Brand = {
+export type Unit = {
   id: string
   name: string
   description: string
