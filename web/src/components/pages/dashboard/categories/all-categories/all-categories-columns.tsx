@@ -54,7 +54,10 @@ const ActionCell = ({ row }: { row: Row<Category> }) => {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="text-red-500" onClick={() => handleDeleteCategory(category.id)}>
+        <DropdownMenuItem
+          className="text-red-500"
+          onClick={() => handleDeleteCategory(category.id)}
+        >
           Delete
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -66,31 +69,37 @@ export const allCategoryColumns: ColumnDef<Category>[] = [
   {
     accessorKey: "id",
     header: "ID",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("id")}</div>,
+    cell: ({ row }) => <div className="">{row.getValue("id")}</div>,
   },
   {
     accessorKey: "name",
     header: ({ column }) => {
       return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
           Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("name")}</div>,
+    cell: ({ row }) => <div className="">{row.getValue("name")}</div>,
   },
   {
     accessorKey: "description",
     header: ({ column }) => {
       return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
           Description
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("description")}</div>,
+    cell: ({ row }) => <div className="">{row.getValue("description")}</div>,
   },
   {
     id: "actions",
