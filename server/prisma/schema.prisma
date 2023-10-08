@@ -47,7 +47,7 @@ model SubCategory {
   id          String    @id @default(uuid())
   name        String
   description String
-  Category    Category  @relation(fields: [categoryId], references: [id])
+  Category    Category  @relation(fields: [categoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   categoryId  String
@@ -79,16 +79,16 @@ model Product {
   name          String
   description   String
   imageUrl      String
-  brand         Brand        @relation(fields: [brandId], references: [id])
+  brand         Brand        @relation(fields: [brandId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   brandId       String
-  category      Category     @relation(fields: [categoryId], references: [id])
+  category      Category     @relation(fields: [categoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   categoryId    String
-  unit          Unit         @relation(fields: [unitId], references: [id])
+  unit          Unit         @relation(fields: [unitId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   unitId        String
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   stocks        Stock[]
-  SubCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
+  SubCategory   SubCategory? @relation(fields: [subCategoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   subCategoryId String?
 }
 
@@ -96,7 +96,7 @@ model Stock {
   id            String   @id @default(uuid())
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  product       Product  @relation(fields: [productId], references: [id])
+  product       Product  @relation(fields: [productId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   productId     String
   quantity      Float
   price         Float
@@ -105,15 +105,15 @@ model Stock {
 
 model Sale {
   id              String   @id @default(uuid())
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  customer        Customer @relation(fields: [customerId], references: [id])
+  createdAt       DateTime @default(now()) @db.Timestamp(0)
+  updatedAt       DateTime @default(now()) @updatedAt @db.Timestamp(0)
+  customer        Customer @relation(fields: [customerId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   customerId      String
   totalPrice      Float
   discountedPrice Float
   status          String
   paidAmount      Float
   dueAmount       Float
-  seller          User     @relation(fields: [sellerId], references: [id])
+  seller          User     @relation(fields: [sellerId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   sellerId        String
 }

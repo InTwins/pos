@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts",
@@ -38,13 +38,14 @@
     "ioredis": "^5.3.2",
     "jose": "^4.14.6",
     "morgan": "^1.10.0",
+    "multer": "1.4.5-lts.1",
     "nodemailer": "^6.9.5",
     "prisma": "^5.3.1",
-    "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "zod": "^3.22.2"
   },
   "devDependencies": {
+    "@types/multer": "^1.4.8",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
     "eslint": "^8.49.0",
     "eslint-config-prettier": "^9.0.0",
@@ -53,6 +54,8 @@
     "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
     "eslint-plugin-promise": "^6.0.0",
     "prettier": "^3.0.3",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2"
   }
 }

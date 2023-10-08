@@ -11,6 +11,7 @@ const prisma = new PrismaClient()
 const main = async () => {
   await prisma.$connect()
   console.log("Connected to database")
+
   setTimeout(async () => {
     await prisma.$disconnect()
     console.log("Disconnected from database")

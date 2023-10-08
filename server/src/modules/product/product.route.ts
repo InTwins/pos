@@ -7,10 +7,11 @@ import {
   getProductController,
   updateProductController,
 } from "./product.controller"
+import { uploadImage } from "../../middlewares/upload-image"
 
 export const productRouter = Router()
 
 productRouter.get("/", verifyUser, getProductController)
-productRouter.post("/", verifyUser, createProductController)
+productRouter.post("/", verifyUser, uploadImage, createProductController)
 productRouter.put("/:id", verifyUser, updateProductController)
 productRouter.delete("/:id", verifyUser, deleteProductController)
