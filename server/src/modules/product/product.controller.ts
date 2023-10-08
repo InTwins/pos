@@ -16,7 +16,19 @@ import {
 export const createProductController = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const productData = createProductValidator.parse(req.body)
+      if (req?.file?.filename === undefined) {
+        next(new ErrorHandler("Image is required!", 400))
+        return
+      }
+
+      const url = new URL(
+        `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`,
+      )
+
+      const productData = createProductValidator.parse({
+        ...req.body,
+        imageUrl: url.toString(),
+      })
 
       try {
         const product = await createProductService(productData)

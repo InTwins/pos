@@ -8,10 +8,12 @@ import { Overview } from "@/components/pages/dashboard/overview"
 import { SettingsLayout } from "@/components/pages/dashboard/settings"
 import { AllBrands } from "@/components/pages/dashboard/brands/all-brands"
 import { AllCategories } from "@/components/pages/dashboard/categories/all-categories"
+// import { AllProducts } from "@/components/pages/dashboard/products/all-products"
 import { AllProducts } from "@/components/pages/dashboard/products/all-products"
 import { AllUnits } from "@/components/pages/dashboard/units/all-units"
 import { AddCategory } from "@/components/pages/dashboard/categories/add-category"
 import { AddProduct } from "@/components/pages/dashboard/products/add-product"
+// import { AddProduct } from "@/components/pages/dashboard/products/add-product"
 import { AddUnit } from "@/components/pages/dashboard/units/add-unit"
 import { AddBrand } from "@/components/pages/dashboard/brands/add-brand"
 import { PrivateRoute } from "@/components/private-route"
@@ -82,6 +84,12 @@ export const router = createBrowserRouter([
             path: "products/create",
             element: <AddProduct />,
           },
+
+          {
+            path: "products/update",
+            element: <AddProduct />,
+          },
+
           {
             path: "units",
             element: <AllUnits />,

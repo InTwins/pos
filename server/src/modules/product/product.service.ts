@@ -24,7 +24,25 @@ export const createProductService = async ({
 }
 
 export const getProductService = async () => {
-  return await prisma.product.findMany({})
+  return await prisma.product.findMany({
+    include: {
+      brand: {
+        select: {
+          name: true,
+        },
+      },
+      category: {
+        select: {
+          name: true,
+        },
+      },
+      unit: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  })
 }
 
 export const updateProductService = async ({

@@ -1,3 +1,4 @@
+import path from "path"
 import cors from "cors"
 import express, {
   type NextFunction,
@@ -15,6 +16,10 @@ export const app = express()
 // Global Middlewares
 app.use(express.json({ limit: "50mb" }))
 app.use(express.urlencoded({ extended: true }))
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "/../../../", "uploads")),
+)
 app.use(morgan("dev"))
 app.use(cookieParser())
 app.use(
@@ -28,6 +33,9 @@ app.use(
 app.use("/api/v1", router)
 
 app.get("/test", (req: Request, res: Response, next: NextFunction) => {
+  const a = req.path
+  console.log(a)
+
   res.status(200).json({
     success: true,
     message: "API is working!",
