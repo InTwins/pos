@@ -10,7 +10,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 import { allProductColumns as columns } from "./all-products-columns"
-import { useGetUnitsQuery } from "@/store/features/unit/unit-api"
+import { useGetProductsQuery } from "@/store/features/product/product-api"
 
 export const useAllProducts = () => {
   const [sorting, setSorting] = useState<SortingState>([])
@@ -18,7 +18,7 @@ export const useAllProducts = () => {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
 
-  const { data } = useGetUnitsQuery("")
+  const { data } = useGetProductsQuery("")
 
   const tableData = data?.data ? data.data : []
 

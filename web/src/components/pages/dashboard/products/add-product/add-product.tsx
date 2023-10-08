@@ -9,7 +9,7 @@ import { Icons } from "@/components/icons"
 import { useAddProduct } from "./add-product.hook"
 import { Controller } from "react-hook-form"
 import Select from "react-select"
-import FileInput from "@/components/shared/file-input"
+// import FileInput from "@/components/shared/file-input"
 
 export const AddProduct = () => {
   const {

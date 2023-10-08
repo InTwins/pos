@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useToast } from "@/components/ui/use-toast"
-import { useDeleteUnitMutation } from "@/store/features/unit/unit-api"
+import { useDeleteProductMutation } from "@/store/features/product/product-api"
 import { ColumnDef, Row } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { Link } from "react-router-dom"
@@ -18,12 +18,12 @@ import { type Product } from "./all-products.type"
 const ActionCell = ({ row }: { row: Row<Product> }) => {
   const product = row.original
 
-  const [deleteUnit] = useDeleteUnitMutation()
+  const [deleteProduct] = useDeleteProductMutation()
   const { toast } = useToast()
 
-  const handleDeleteUnit = async (id: string) => {
+  const handleDeleteProduct = async (id: string) => {
     try {
-      await deleteUnit(id).unwrap()
+      await deleteProduct(id).unwrap()
       toast({
         title: "Success!",
         description: "Product deleted successfully!",
@@ -57,7 +57,7 @@ const ActionCell = ({ row }: { row: Row<Product> }) => {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="text-red-500"
-          onClick={() => handleDeleteUnit(product.id)}
+          onClick={() => handleDeleteProduct(product.id)}
         >
           Delete
         </DropdownMenuItem>
@@ -72,6 +72,31 @@ export const allProductColumns: ColumnDef<Product>[] = [
     header: "ID",
     cell: ({ row }) => <div className="">{row.getValue("id")}</div>,
   },
+
+  {
+    accessorKey: "image",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Image
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => (
+      <div className="aspect-square w-16">
+        <img
+          src={row.original?.imageUrl}
+          className="h-full w-full object-cover"
+          alt={row.original.name}
+        />
+      </div>
+    ),
+  },
+
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -101,6 +126,51 @@ export const allProductColumns: ColumnDef<Product>[] = [
       )
     },
     cell: ({ row }) => <div className="">{row.getValue("description")}</div>,
+  },
+  {
+    accessorKey: "category",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Category
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => <div className="">{row.original?.category?.name}</div>,
+  },
+  {
+    accessorKey: "brand",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Brand
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => <div className="">{row.original?.brand?.name}</div>,
+  },
+  {
+    accessorKey: "unit",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Unit
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => <div className="">{row.original?.unit?.name}</div>,
   },
   {
     id: "actions",

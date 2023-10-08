@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit"
 import { apiSlice } from "../features/api/api-slice"
 import { authSliceReducer } from "../features/auth/auth-slice"
 import { brandReducer } from "../features/brand/brand-slice"
+import { productReducer } from "../features/product/product-slice"
 import { unitReducer } from "../features/unit/unit-slice"
 
 export const store = configureStore({
@@ -10,9 +11,11 @@ export const store = configureStore({
     auth: authSliceReducer,
     brand: brandReducer,
     unit: unitReducer,
+    product: productReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>

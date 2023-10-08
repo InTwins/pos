@@ -1,21 +1,25 @@
-import { SubmitHandler, useForm } from "react-hook-form"
-import { InputType, addProductSchema } from "./add-product.validator"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { useToast } from "@/components/ui/use-toast"
-import { useLocation, useSearchParams } from "react-router-dom"
-import {
-  useCreateUnitMutation,
-  useGetUnitsQuery,
-  useUpdateUnitMutation,
-} from "@/store/features/unit/unit-api"
-import { useGetCategoriesQuery } from "@/store/features/category/category-api"
 import { useGetBrandsQuery } from "@/store/features/brand/brand-api"
+import { useGetCategoriesQuery } from "@/store/features/category/category-api"
+import {
+  useCreateProductMutation,
+  useUpdateProductMutation,
+} from "@/store/features/product/product-api"
+import { useGetUnitsQuery } from "@/store/features/unit/unit-api"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { SubmitHandler, useForm } from "react-hook-form"
+import { useLocation, useSearchParams } from "react-router-dom"
+import { InputType, addProductSchema } from "./add-product.validator"
 
 export const useAddProduct = () => {
-  const [createUnit, { isLoading: isCreateLoading, isError: isCreateError }] =
-    useCreateUnitMutation()
-  const [updateUnit, { isLoading: isUpdateLoading, isError: isUpdateError }] =
-    useUpdateUnitMutation()
+  const [
+    createProduct,
+    { isLoading: isCreateLoading, isError: isCreateError },
+  ] = useCreateProductMutation()
+  const [
+    updateProduct,
+    { isLoading: isUpdateLoading, isError: isUpdateError },
+  ] = useUpdateProductMutation()
 
   const { data: categoryList } = useGetCategoriesQuery("category")
   const { data: brandList } = useGetBrandsQuery("brand")
@@ -61,12 +65,19 @@ export const useAddProduct = () => {
   })
 
   const onSubmit: SubmitHandler<InputType> = async (data) => {
-    console.log(data)
-    return
+    const formData = new FormData()
+    formData.append("name", data.name)
+    formData.append("description", data.description)
+    formData.append("categoryId", data.category.value)
+    formData.append("brandId", data.brand.value)
+    formData.append("unitId", data.unit.value)
+    formData.append("image", data.imageUrl as Blob)
+    // formData.values()
+    console.log({ data, formData, value: formData.values })
 
     if (isUpdateMode && searchParams.get("id")) {
       try {
-        await updateUnit({
+        await updateProduct({
           ...data,
           id: searchParams.get("id") as string,
         }).unwrap()
@@ -84,7 +95,7 @@ export const useAddProduct = () => {
       }
     } else {
       try {
-        await createUnit(data).unwrap()
+        await createProduct(formData).unwrap()
         toast({
           title: "Product created successfully",
           description: "success",
@@ -94,7 +105,7 @@ export const useAddProduct = () => {
         console.error(error)
         toast({
           variant: "destructive",
-          title: "Error creating unit",
+          title: "Error creating product",
         })
       }
     }

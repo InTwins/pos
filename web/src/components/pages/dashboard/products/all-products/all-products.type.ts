@@ -3,7 +3,19 @@ export type Product = {
   name: string
   description: string
   imageUrl: string
-  brand: string
-  category: string
-  unit: string
+  brandId: string
+  unitId: string
+  categoryId: string
+  createdAt: string
+  updatedAt: string
+
+  brand: {
+    name: string
+  }
+  category: {
+    name: string
+  }
+  unit: {
+    name: string
+  }
 }
