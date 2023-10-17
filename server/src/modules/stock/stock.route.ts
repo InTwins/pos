@@ -6,9 +6,9 @@ import {
   updateStockController,
 } from "./stock.controller"
 
-export const sotckRouter = Router()
+export const stockRouter = Router()
 
-sotckRouter.get("/", getStockController)
-sotckRouter.post("/", createStockController)
-sotckRouter.put("/:id", updateStockController)
-sotckRouter.delete("/:id", deleteStockController)
+stockRouter.get("/", getStockController)
+stockRouter.post("/", createStockController)
+stockRouter.put("/:id", updateStockController)
+stockRouter.delete("/:id", deleteStockController)

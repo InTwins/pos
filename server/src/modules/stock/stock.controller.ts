@@ -16,13 +16,13 @@ import {
 export const createStockController = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const StockData = createStockValidator.parse(req.body)
+      const stockData = createStockValidator.parse(req.body)
       try {
-        const Stock = await createStockService(StockData)
+        const stock = await createStockService(stockData)
         res.status(200).json({
           success: true,
           message: "Stock created successfully!",
-          data: Stock,
+          data: stock,
         })
       } catch (error) {
         console.error(error)
@@ -38,11 +38,11 @@ export const createStockController = catchAsyncError(
 export const getStockController = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const StockData = await getStockService()
+      const stockData = await getStockService()
       res.status(200).json({
         success: true,
         message: "Success",
-        data: StockData,
+        data: stockData,
       })
     } catch (error) {
       console.error(error)
@@ -83,12 +83,12 @@ export const deleteStockController = catchAsyncError(
       const deleteStock = deleteStockValidator.parse(req.params)
 
       try {
-        const deletedata = await deleteStockService(deleteStock)
+        const deleteData = await deleteStockService(deleteStock)
 
         res.status(200).json({
           success: true,
           message: "Success",
-          data: deletedata,
+          data: deleteData,
         })
       } catch (error) {
         console.error(error)

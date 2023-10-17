@@ -49,10 +49,9 @@ export const updateStockService = async ({
 }
 
 export const deleteStockService = async ({ id }: { id: string }) => {
-  const data = await prisma.stock.delete({
+  return await prisma.stock.delete({
     where: {
       id,
     },
   })
-  return data
 }
