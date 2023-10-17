@@ -93,7 +93,8 @@ export const deleteCategoryController = catchAsyncError(
         })
       } catch (error) {
         console.error(error)
-        next(new ErrorHandler("Coudn't delete!", 500))}
+        next(new ErrorHandler("Coudn't delete!", 500))
+      }
     } catch (error) {
       console.error(error)
       next(new ErrorHandler("Invalid request body!", 400))

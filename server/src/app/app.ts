@@ -22,10 +22,25 @@ app.use(
 )
 app.use(morgan("dev"))
 app.use(cookieParser())
+app.options(
+  "*",
+  cors({
+    credentials: true,
+    // origin: getEnv("ORIGIN"),
+    // origin: "*",
+    origin: true,
+    optionsSuccessStatus: 200,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+  }),
+)
 app.use(
   cors({
     credentials: true,
-    origin: getEnv("ORIGIN"),
+    // origin: getEnv("ORIGIN"),
+    // origin: "*",
+    origin: true,
+    optionsSuccessStatus: 200,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
   }),
 )
 
