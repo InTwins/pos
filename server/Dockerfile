@@ -14,6 +14,8 @@ RUN \
 
 COPY . .
 
+RUN pnpm prisma:generate
+
 EXPOSE 4000
 
 ENV PORT 4000
