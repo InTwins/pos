@@ -20,7 +20,6 @@ const env = {
   DATABASE_URL: process.env.DATABASE_URL,
   PORT: process.env.PORT,
   ORIGIN: process.env.ORIGIN,
-  REDIS_URL: process.env.REDIS_URL,
   JWT_SECRET: process.env.JWT_SECRET,
   JWT_ISSUER: process.env.JWT_ISSUER,
   JWT_ACTIVATION_EXPIRATION: process.env.JWT_ACTIVATION_EXPIRATION,

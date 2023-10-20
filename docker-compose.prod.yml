@@ -21,13 +21,15 @@ services:
   api:
     build:
       context: ./server
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     container_name: api
     restart: unless-stopped
     ports:
       - "4000:4000"
     depends_on:
       - postgres
+    volumes:
+      - ./uploads:/app/uploads
       # - redis
     # command: ./docker-entrypoint.sh
   web:

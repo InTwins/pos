@@ -31,6 +31,9 @@ services:
       # - redis
     networks:
       - pos
+    volumes:
+      - ./server/src/:/app/src/
+      - ./uploads:/app/uploads
   # web:
   #   build: ./web
   #   ports:
