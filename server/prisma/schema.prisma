@@ -101,6 +101,9 @@ model Stock {
   quantity      Float
   price         Float
   purchasePrice Float
+
+  supplier   Supplier? @relation(fields: [supplierId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  supplierId String?
 }
 
 model Sale {
@@ -116,4 +119,16 @@ model Sale {
   dueAmount       Float
   seller          User     @relation(fields: [sellerId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   sellerId        String
+}
+
+model Supplier {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  firstName   String
+  lastName    String
+  phoneNumber String
+  company     String
+  description String
+  stocks      Stock[]
 }
